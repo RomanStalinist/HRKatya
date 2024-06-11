@@ -1,4 +1,4 @@
-import data.db
+import db.db
 import tkinter as t
 import customtkinter as ct
 

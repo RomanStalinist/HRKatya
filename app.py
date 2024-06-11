@@ -1,14 +1,12 @@
-import datetime
 import os
-import data.db
-import tkinter as t
+import db.db
 import customtkinter as ct
 from models.user import User
 import tkinter.messagebox as mb
 import tkinter.simpledialog as sd
 from views import login, sign_up, main, employees, passports, add_passport, add_employee
 
-sqlite = data.db.prepare()
+sqlite = db.db.prepare()
 ct.set_appearance_mode('light')
 ct.set_default_color_theme('blue')
 

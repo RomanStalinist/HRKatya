@@ -1,4 +1,4 @@
-import data.db
+import db.db
 import tkinter as tk
 import customtkinter as ct
 
@@ -6,7 +6,7 @@ import customtkinter as ct
 window = ct.CTk()
 window.geometry('500x500')
 window.title('Регистрация')
-sqlite = data.db.prepare()
+sqlite = db.db.prepare()
 
 frame = ct.CTkFrame(master=window, corner_radius=16)
 frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)

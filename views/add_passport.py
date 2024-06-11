@@ -1,10 +1,10 @@
-import data.db
+import db.db
 import tkinter as t
 import customtkinter as ct
 
 window = ct.CTk()
 window.geometry('600x600')
-sqlite = data.db.prepare()
+sqlite = db.db.prepare()
 window.title('Добавить паспортные данные')
 window.grid_rowconfigure((0, 2), weight=1)
 window.grid_columnconfigure((0, 1), weight=1)

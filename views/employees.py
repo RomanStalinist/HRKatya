@@ -1,4 +1,4 @@
-import data.db
+import db.db
 import tkinter as t
 import customtkinter as ct
 from CTkTable import CTkTable
@@ -8,7 +8,7 @@ window.title('Паспорта')
 window.geometry('1200x800')
 window.grid_rowconfigure(0, weight=1)
 window.grid_columnconfigure((0, 1), weight=1)
-sqlite = data.db.prepare()
+sqlite = db.db.prepare()
 
 frame = ct.CTkFrame(master=window, corner_radius=16)
 frame.place(relx=0.5, rely=0.5, anchor=t.CENTER)
