@@ -102,6 +102,7 @@ def add_passport_click():
     sex = add_passport.sex_combobox.get()
     dob = add_passport.dob_entry.get()
     pob = add_passport.pob_entry.get()
+
     if len(seria) > 0 and len(number) > 0 and len(fullname) > 0 and len(sex) > 0 and len(dob) > 0 and len(pob) > 0:
         try:
             sqlite.insert(table='Паспорта', values={
@@ -112,27 +113,33 @@ def add_passport_click():
                 'ДатаРождения': dob,
                 'МестоРождения': pob
             })
-            mb.showinfo('Успех', 'Паспорт добавлен')
+
             passports_data = sqlite.query(table='Паспорта')
-            headers = ['Код', 'Серия', 'Номер', 'ФИО', 'Пол', 'Дата Рождения', 'Место Рождения']
-            p = [headers] + passports_data
-            passports.table.configure(values=p, rows=len(p))
+
+            for i in range(len(passports.table.get())):
+                passports.table.delete_row(i + 1)
+
+            for row in passports_data:
+                passports.table.add_row(row)
+
+            mb.showinfo('Успех', 'Паспорт добавлен')
             switch_window(passports.window)
+
         except Exception as ex:
             mb.showerror('Ошибка', ex)
-        return
-
-    mb.showerror('Ошибка', 'Все поля должны быть заполненными')
+    else:
+        mb.showerror('Ошибка', 'Все поля должны быть заполненными')
 
 
 def show_delete_passport():
     passport_id = sd.askstring(title='Информация', prompt='Код паспорта')
     try:
-        sqlite.delete(table='Паспорта', whereClause='Код = ?', whereArgs=(passport_id, ))
+        sqlite.delete(table='Паспорта', whereClause='Код = ?', whereArgs=(int(passport_id), ))
         passports_data = sqlite.query(table='Паспорта')
         headers = ['Код', 'Серия', 'Номер', 'ФИО', 'Пол', 'Дата Рождения', 'Место Рождения']
         p = [headers] + passports_data
         passports.table.configure(values=p, rows=len(p))
+        sqlite.commit()
     except Exception as ex:
         mb.showerror('Ошибка', ex)
 
@@ -158,12 +165,15 @@ def add_employee_click():
                 'Оклад': salary,
                 'ПаспортныеДанные': passport_id,
             })
-            mb.showinfo('Успех', 'Работник добавлен')
+
             employees_data = sqlite.query(table='Работники')
-            headers = ['Код', 'Образование', 'Должность', 'Профессия', 'Подразделение', 'Дата поступления', 'Оклад',
-                       'Паспортные данные']
-            e = [headers] + employees_data
-            employees.table.configure(values=e, rows=len(e))
+
+            for i in range(len(passports.table.get())):
+                employees.table.delete_row(i + 1)
+
+            for row in employees_data:
+                employees.table.add_row(row)
+
             switch_window(employees.window)
         except Exception as ex:
             mb.showerror('Ошибка', ex)
@@ -175,12 +185,13 @@ def add_employee_click():
 def show_delete_employee():
     employee_id = sd.askstring(title='Информация', prompt='Код работника')
     try:
-        sqlite.delete(table='Работники', whereClause='Код = ?', whereArgs=(employee_id,))
+        sqlite.delete(table='Работники', whereClause='Код = ?', whereArgs=(int(employee_id),))
         employees_data = sqlite.query(table='Работники')
         headers = ['Код', 'Образование', 'Должность', 'Профессия', 'Подразделение', 'Дата поступления', 'Оклад',
                    'Паспортные данные']
         e = [headers] + employees_data
         employees.table.configure(values=e, rows=len(e))
+        sqlite.commit()
     except Exception as ex:
         mb.showerror('Ошибка', ex)
 
